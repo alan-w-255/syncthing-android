@@ -68,7 +68,7 @@ public class FoldersAdapter extends ArrayAdapter<Folder> {
         if (!mIsTelevision) {
             return;
         }
-        convertView.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
+        ((ViewGroup) convertView).setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
         TypedValue typedValue = new TypedValue();
         if (mContext.getTheme().resolveAttribute(android.R.attr.selectableItemBackgroundBorderless, typedValue, true)) {
             holder.openFolder.setBackgroundResource(typedValue.resourceId);
