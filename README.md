@@ -1,5 +1,8 @@
 # Syncthing-Fork - A Syncthing Wrapper for Android
 
+> **Fork note (dangbei-x7 branch)**: personal fork for the **Dangbei X7 Pro projector** (当贝OS, remote-only).
+> Changes vs. upstream + install/keep-alive/pairing guide: see [README-DANGBEI-X7PRO.md](README-DANGBEI-X7PRO.md).
+
 [![License: MPLv2](https://img.shields.io/badge/License-MPLv2-blue.svg)](https://opensource.org/licenses/MPL-2.0)
 <a href="https://github.com/researchxxl/syncthing-android/releases/latest" alt="GitHub release"><img src="https://img.shields.io/github/v/release/researchxxl/syncthing-android" /></a>
 <a href="https://tooomm.github.io/github-release-stats/?username=researchxxl&repository=syncthing-android" alt="GitHub Stats"><img src="https://img.shields.io/github/downloads/researchxxl/syncthing-android/total.svg" /></a>

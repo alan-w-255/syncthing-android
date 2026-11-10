@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 // import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,15 +41,38 @@ public class FoldersAdapter extends ArrayAdapter<Folder> {
 
     private final Context mContext;
 
+    private final boolean mIsTelevision;
+
     private RestApi mRestApi;
 
     public FoldersAdapter(Context context) {
         super(context, 0);
         mContext = context;
+        mIsTelevision = (context.getResources().getConfiguration().uiMode
+                & android.content.res.Configuration.UI_MODE_TYPE_MASK)
+                == android.content.res.Configuration.UI_MODE_TYPE_TELEVISION;
     }
 
     public void setRestApi(RestApi restApi) {
         mRestApi = restApi;
+    }
+
+    /**
+     * On Android TV (e.g. Dangbei X7 Pro projector), the row's "blocksDescendants"
+     * focusability from item_folder_list.xml makes the openFolder / override / revert
+     * buttons unreachable with a D-pad remote. Re-enable descendant focus so
+     * directional navigation can enter those buttons, and give the borderless
+     * openFolder button a visible focus ripple.
+     */
+    private void applyTelevisionFocusWorkaround(View convertView, ViewHolder holder) {
+        if (!mIsTelevision) {
+            return;
+        }
+        convertView.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
+        TypedValue typedValue = new TypedValue();
+        if (mContext.getTheme().resolveAttribute(android.R.attr.selectableItemBackgroundBorderless, typedValue, true)) {
+            holder.openFolder.setBackgroundResource(typedValue.resourceId);
+        }
     }
 
     static class ViewHolder {
@@ -87,6 +111,8 @@ public class FoldersAdapter extends ArrayAdapter<Folder> {
             holder.conflicts = convertView.findViewById(R.id.conflicts);
             holder.progressBar = convertView.findViewById(R.id.progressBar);
             holder.openFolder = convertView.findViewById(R.id.openFolder);
+
+            applyTelevisionFocusWorkaround(convertView, holder);
 
             convertView.setTag(holder);
         } else {
